@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,46 +9,53 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="./assets/CSS/materialize.min.css"  media="screen,projection"/>
-
+    <link type="text/css" rel="stylesheet" href="./assets/CSS/materialize.min.css" media="screen,projection" />
+    <!-- Import style.css -->
+    <link rel="stylesheet" href="./assets/CSS/style.css">
 </head>
+
 <body>
-    <header class="container">
-        <h1>
-            Fresh finds
-        </h1>
-    </header>
+    <div class="mainBody">
+        <header class="container">
+            <div class="jumbotron">
+                <h1 class="freshFinds">
+                    Fresh Finds
+                </h1>
+            </div>
+        </header>
 
-    <div>
-        <h2>Choose your favorite genre and hit submit</h2>
-    </div>
+        <div>
+            <h2>Choose your favorite genre and hit submit</h2>
+        </div>
 
-   <!-- Song generator -->
-    <div class="container">
-        <button class="dropbtn">Dropdown</button>
+        <!-- Song generator -->
+        <div class="container">
+            <button class="dropbtn">Dropdown</button>
             <div class="dropdown-content">
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>
                 <a href="#">Link 3</a>
             </div>
-        <button class="Submit">Submit</button>
-        <div>
-            <h3>Song Title</h3>
-            <p>Artist</p>
+            <button class="Submit">Submit</button>
+            <div>
+                <h3>Song Title</h3>
+                <p>Artist</p>
+            </div>
+            <button class="Submit">Share</button>
+
         </div>
-        <button class="Submit">Share</button>
+        <!-- Previous song -->
+        <div class="">
+            <h4>Song Title</h4>
+            <p>Artist</p>
+            <button class="share">Share</button>
 
-    </div>
-<!-- Previous song -->
-    <div class="">
-        <h4>Song Title</h4>
-        <p>Artist</p>
-        <button class="share">Share</button>
-
+        </div>
     </div>
 
 
 
     <script type="text/javascript" src="./assets/JS/materialize.min.js"></script>
 </body>
+
 </html>
