@@ -13,7 +13,8 @@ function dropDown() {
 document.addEventListener('DOMContentLoaded', dropDown);
 
 
-
+//testing variable
+//replace with song title/artist pulled from song in spotify
 var artist = "Maroon 5";
 var title = "Misery";
 
