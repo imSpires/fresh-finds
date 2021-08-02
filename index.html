@@ -8,6 +8,9 @@
     <title>Fresh Finds</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="./assets/CSS/materialize.min.css" media="screen,projection" />
     <!-- Import style.css -->
@@ -16,40 +19,40 @@
 
 <body>
     <div class="mainBody">
-        <header class="container">
+        <header class="container header">
             <div class="jumbotron">
                 <h1 class="freshFinds">
-                    Fresh Finds
+                    Fresh <span>Finds</span>
                 </h1>
             </div>
         </header>
 
-        <div>
-            <h2>Choose your favorite genre and hit submit</h2>
+        <div class="intro">
+            <h2>Choose your favorite genre and hit submit!</h2>
         </div>
 
         <!-- Song generator -->
-        <div class="container">
-            <button class="dropbtn">Dropdown</button>
+        <div class="container main-container">
+            <button class="dropbtn">Genre</button>
             <div class="dropdown-content">
                 <a href="#">Link 1</a>
                 <a href="#">Link 2</a>
                 <a href="#">Link 3</a>
             </div>
-            <button class="Submit">Submit</button>
-            <div>
-                <h3>Song Title</h3>
-                <p>Artist</p>
+            <div class="song-info">
+                <div class="song-title">Song Title</div>
+                <div class="artist">Artist</div>
             </div>
-            <button class="Submit">Share</button>
+            <button class="submitbtn">Share</button>
 
         </div>
         <!-- Previous song -->
-        <div class="">
-            <h4>Song Title</h4>
-            <p>Artist</p>
-            <button class="share">Share</button>
-
+        <div class="container previous-song-container">
+            <div class="previous-song-info">
+                <div class="song-title">Song Title</div>
+                <div class="artist">Artist</div>
+            </div>
+            <button class="submitbtn">Share</button>
         </div>
     </div>
 
