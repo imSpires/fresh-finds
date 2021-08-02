@@ -110,3 +110,9 @@ body {
   display: flex;
   justify-content: flex-start;
 }
+
+/* Dropdown list color */
+.dropdown-content li > a, .dropdown-content li > span {
+  color: #000000 !important;
+  text-align: center;
+}

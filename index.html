@@ -12,7 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="./assets/CSS/materialize.min.css" media="screen,projection" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Import style.css -->
     <link rel="stylesheet" href="./assets/CSS/style.css">
 </head>
@@ -33,12 +34,15 @@
 
         <!-- Song generator -->
         <div class="container main-container">
-            <button class="dropbtn">Genre</button>
-            <div class="dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
+            <!-- Dropdown Trigger -->
+            <a class='dropdown-trigger dropbtn btn' href='#' data-target='dropdown1'>Genre</a>
+
+            <!-- Dropdown Structure -->
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="#!">Rap</a></li>
+                <li><a href="#!">Pop</a></li>
+                <li><a href="#!">Rock</a></li>
+            </ul>
             <div class="song-info">
                 <div class="song-title">Song Title</div>
                 <div class="artist">Artist</div>
@@ -56,9 +60,9 @@
         </div>
     </div>
 
-
-
     <script type="text/javascript" src="./assets/JS/materialize.min.js"></script>
+    <script type="text/javascript" src="./assets/JS/script.js"></script>
+
 </body>
 
 </html>
