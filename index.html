@@ -19,7 +19,6 @@
 </head>
 
 <body>
-    <div class="mainBody">
         <header class="container header">
             <div class="jumbotron">
                 <h1 class="freshFinds">
@@ -27,37 +26,50 @@
                 </h1>
             </div>
         </header>
-
-        <div class="intro">
-            <h2>Choose your favorite genre and hit submit!</h2>
-        </div>
-
-        <!-- Song generator -->
-        <div class="container main-container">
-            <!-- Dropdown Trigger -->
-            <a class='dropdown-trigger dropbtn btn' href='#' data-target='dropdown1'>Genre</a>
-
-            <!-- Dropdown Structure -->
-            <ul id='dropdown1' class='dropdown-content'>
-                <li><a href="#!">Rap</a></li>
-                <li><a href="#!">Pop</a></li>
-                <li><a href="#!">Rock</a></li>
-            </ul>
-            <div class="song-info">
-                <div class="song-title">Song Title</div>
-                <div class="artist">Artist</div>
+    <div class="body-container">
+        <div class="left-container">
+            <div class="intro">
+                <h2>Choose your favorite genre and hit submit!</h2>
             </div>
-            <button class="submitbtn">Share</button>
 
-        </div>
-        <!-- Previous song -->
-        <div class="container previous-song-container">
-            <div class="previous-song-info">
-                <div class="song-title">Song Title</div>
-                <div class="artist">Artist</div>
+            <!-- Song generator -->
+            <div class="container main-container">
+                <!-- Dropdown Trigger -->
+                <a class='dropdown-trigger dropbtn btn' href='#' data-target='dropdown1'>Select</a>
+
+                <!-- Dropdown Structure -->
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">Rap</a></li>
+                    <li><a href="#!">Pop</a></li>
+                    <li><a href="#!">Rock</a></li>
+                </ul>
+                <div class="song-info">
+                    <div class="song-title">Song Title</div>
+                    <div class="artist">Artist</div>
+                </div>
+                <button class="submitbtn">Submit</button>
             </div>
-            <button class="submitbtn">Share</button>
+
+            <!-- Previous song -->
+            <div class="previous-intro">
+                <h2>Previous Song</h2>
+            </div>
+            <div class="container previous-song-container">
+                <div class="previous-song-info">
+                    <div class="song-title">Song Title</div>
+                    <div class="artist">Artist</div>
+                </div>
+                <button class="submitbtn">Share</button>
+            </div>
         </div>
+
+        <div class="right-container">
+            <div class="container main-container">
+                <h2>Lyrics</h2>
+                <p>These are song lyrics</p>
+            </div>
+        </div>
+
     </div>
 
     <script type="text/javascript" src="./assets/JS/materialize.min.js"></script>
