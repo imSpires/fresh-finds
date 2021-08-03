@@ -12,7 +12,6 @@ function dropDown() {
 
 document.addEventListener('DOMContentLoaded', dropDown);
 
-
 //testing variable
 //replace with song title/artist pulled from song in spotify
 var artist = "Maroon 5";
@@ -35,4 +34,100 @@ function getLyrics(){
     })
     //add lyrics to HTML
 }
-getLyrics();
+// Function is greyed out to avoid console.log clutter
+// getLyrics();
+
+// Spotify code starts here --------------------
+// Variables
+var clientID = '13e6f9bcfc184ddc8f5e03328ccbb045';
+var clientSecret = 'fa24c366468a420c8c795b9ec4a3ef23';
+
+//
+function spotifyAPI() {
+    var getToken = async () => {
+
+        var result = await fetch('https://accounts.spotify.com/api/token', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/x-www-form-urlencoded', 
+                'Authorization' : 'Basic ' + btoa( clientID + ':' + clientSecret)
+            },
+            body: 'grant_type=client_credentials'
+        });
+
+        var data = await result.json();
+        console.log(data);
+        return data.access_token;
+    }
+
+    // function takes token as par and returns genre categories
+    var getGenres = async (token) => {
+
+        var result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        });
+
+        var data = await result.json();
+        return data.categories.items;
+    }
+
+    // function takes token and genreId as pars and returns a playlist
+    var getPlaylistByGenre = async (token, genreId) => {
+
+        var limit = 1;
+        
+        var result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        });
+
+        var data = await result.json();
+        // Randomize and select one playlist?
+        return data.playlists.items;
+    }
+    
+    var getTracks = async (token, tracksEndPoint) => {
+
+        var limit = 1;
+
+        var result = await fetch(`${tracksEndPoint}?limit=${limit}`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        });
+
+        var data = await result.json();
+        return data.items;
+    }
+
+    var getTrack = async (token, trackEndPoint) => {
+
+        var result = await fetch(`${trackEndPoint}`, {
+            method: 'GET',
+            headers: { 'Authorization' : 'Bearer ' + token}
+        });
+
+        var data = await result.json();
+        return data;
+    }
+
+    return {
+        getToken() {
+            return getToken();
+        },
+        getGenres(token) {
+            return getGenres(token);
+        },
+        getPlaylistByGenre(token, genreId) {
+            return getPlaylistByGenre(token, genreId);
+        },
+        getTracks(token, tracksEndPoint) {
+            return getTracks(token, tracksEndPoint);
+        },
+        getTrack(token, trackEndPoint) {
+            return getTrack(token, trackEndPoint);
+        }
+    }
+};
+
+spotifyAPI();
