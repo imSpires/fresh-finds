@@ -92,12 +92,25 @@ function spotifyAPI(token) {
         });
 
         var data = await result.json();
-        console.log(data.categories.items)
-        var genreName = data.categories.items[2].name
-        console.log(genreName)
         console.log(data)
-        genreId = data.categories.items[2].id
-        console.log(genreId)
+        console.log(data.categories.items)
+
+        //finds if genre matches one selected and saves id
+        for (var i = 0; i < data.categories.items.length; i++) {
+            var genreName = data.categories.items[i].name
+
+            //compares dropdown selection with genre name to find the id
+            if ($('#dropdown1') == genreName){
+                genreId = data.categories.items[i].id
+            };
+        }
+
+
+        // console.log(genreName)
+
+
+        // genreId = data.categories.items[2].id
+        // console.log(genreId)
         return;
     }
 
@@ -168,6 +181,7 @@ function spotifyAPI(token) {
     await getGenres(accessToken);
     await getPlaylistByGenre(accessToken, genreId);
     await getTracks(accessToken)
+    getLyrics();
     }
 
     runAll();
