@@ -1,21 +1,34 @@
 
-// function to utilize dropdown menu 
-// (reference from materialize)
-function dropDown() {
-    var dropDownEl = document.querySelectorAll('.dropdown-trigger');
-    var dropDownOptions = M.Dropdown.init(dropDownEl, {
-        hover: false, // Activate on hover
-        gutter: 0, // Spacing from edge
-        stopPropagation: false // Stops event propagation
-    });
-};
+// // function to utilize dropdown menu 
+// // (reference from materialize)
+// function dropDown() {
+//     var dropDownEl = document.querySelectorAll('.dropdown-trigger');
+//     var dropDownOptions = M.Dropdown.init(dropDownEl, {
+//         hover: false, // Activate on hover
+//         gutter: 0, // Spacing from edge
+//         stopPropagation: false // Stops event propagation
+//     });
+// };
 
-document.addEventListener('DOMContentLoaded', dropDown);
+// document.addEventListener('DOMContentLoaded', dropDown);
 
 //testing variable
 //replace with song title/artist pulled from song in spotify
-var artist = "Maroon 5";
-var title = "Misery";
+var artist = "";
+var title = "";
+var genre = '';
+
+$(document).ready(function(){
+    $('select').formSelect();
+  });
+
+//selects saves
+$('select').on('change', function(){
+    genre = this;
+    console.log(genre);
+})
+
+
 
 
 // Takes artist and song title to return lyrics for the song
@@ -105,7 +118,7 @@ function spotifyAPI(token) {
             var genreName = data.categories.items[i].name
 
             //compares dropdown selection with genre name to find the id
-            if ($('#dropdown1') == genreName) {
+            if genre == genreName) {
                 genreId = data.categories.items[i].id
             };
         }
