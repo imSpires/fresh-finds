@@ -46,17 +46,21 @@
                 <div class="input-field col s12">
                     <select>
                       <option value="" disabled selected>Choose a genre!</option>
-                      <option value="Rap">Rap</option>
-                      <option value="Rock">Rock</option>
-                      <option value="Pop">Pop</option>
+                      <option value="Rap">metal</option>
+                      <option value="Rock">rock</option>
+                      <option value="Pop">pop</option>
                     </select>
                     <!-- <label>Choose a Genre!</label> -->
                   </div>
+                  <div id = "music-player-div">
+                    <!-- <iframe class="" id = "music-player" height = 40 width = 100 src = ""></iframe> -->
+                  </div>
                 <div class="song-info">
-                    <div class="song-title">Song Title</div>
-                    <div class="artist">Artist</div>
+                    <div class="song-title" id = "current-song-title">Song Title</div>
+                    <div class="artist" id = "current-artist">Artist</div>
                 </div>
-                <button class="submitbtn">Submit</button>
+
+                <button class="submitbtn" id = "songSubmit">Submit</button>
             </div>
 
             <!-- Previous song -->
@@ -65,8 +69,8 @@
             </div>
             <div class="container previous-song-container">
                 <div class="previous-song-info">
-                    <div class="song-title">Song Title</div>
-                    <div class="artist">Artist</div>
+                    <div class="song-title" id= "previous-song-title">Song Title</div>
+                    <div class="artist" id= "previous-artist">Artist</div>
                 </div>
                 <button class="submitbtn">Share</button>
             </div>

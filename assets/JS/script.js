@@ -53,7 +53,7 @@ function getLyrics() {
 
 }
 // Function is greyed out to avoid console.log clutter
-getLyrics();
+// getLyrics();
 
 // Spotify code starts here --------------------
 // Variables
@@ -73,7 +73,7 @@ var clientSecret = 'fa24c366468a420c8c795b9ec4a3ef23';
 function spotifyAPI(token) {
     console.log("Hello there")
 
-    var genreId = ""
+    var genreId = $(".selected")[0].innerText
     var accessToken = ""
     var playlistId = ""
     var trackId = ""
@@ -118,7 +118,7 @@ function spotifyAPI(token) {
             var genreName = data.categories.items[i].name
 
             //compares dropdown selection with genre name to find the id
-            if genre == genreName) {
+            if (genre == genreName) {
                 genreId = data.categories.items[i].id
             };
         }
@@ -199,10 +199,21 @@ function spotifyAPI(token) {
         await getGenres(accessToken);
         await getPlaylistByGenre(accessToken, genreId);
         await getTracks(accessToken)
+        $('#current-song-title').text(title)
+        $('#current-artist').text(artist)
+        $('#music-player-div').html('<iframe class="" id = "music-player" height = 80 width = 400 src = ' + preview_url + '></iframe>')
         getLyrics();
     }
 
     runAll();
 };
 
-spotifyAPI();
+$('#songSubmit').click(function () {
+    console.log('click')
+    genreId = $('.selected')[0].innerText
+    console.log(genreId)
+    spotifyAPI();
+
+});
+
+//spotifyAPI();
