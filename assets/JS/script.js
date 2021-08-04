@@ -4,9 +4,9 @@
 function dropDown() {
     var dropDownEl = document.querySelectorAll('.dropdown-trigger');
     var dropDownOptions = M.Dropdown.init(dropDownEl, {
-                hover: false, // Activate on hover
-                gutter: 0, // Spacing from edge
-                stopPropagation: false // Stops event propagation
+        hover: false, // Activate on hover
+        gutter: 0, // Spacing from edge
+        stopPropagation: false // Stops event propagation
     });
 };
 
@@ -19,23 +19,28 @@ var title = "Misery";
 
 
 // Takes artist and song title to return lyrics for the song
-function getLyrics(){
+function getLyrics() {
     fetch("https://api.vagalume.com.br/search.php"
         + "?art=" + artist
         + "&mus=" + title
         + "&apikey={896e5346faeb02410b155bee7c8b998f}"
-    ).then(function(response){
+    ).then(function (response) {
         return response.json()
-        }
-    ).then(function(response) {
+    }
+    ).then(function (response) {
         console.log(response)
         console.log(response.mus[0].text)
         //return response.mus[0].text
+        let lyricData = response.mus[0].text
+        let lyrics = document.createTextNode(lyricData);
+        let lyricsText = document.getElementById("lyricsText");
+
+        lyricsText.appendChild(lyrics);
     })
-    //add lyrics to HTML
+
 }
 // Function is greyed out to avoid console.log clutter
-// getLyrics();
+getLyrics();
 
 // Spotify code starts here --------------------
 // Variables
@@ -67,20 +72,20 @@ function spotifyAPI(token) {
         var result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
-                'Content-Type' : 'application/x-www-form-urlencoded', 
-                'Authorization' : 'Basic ' + btoa( clientID + ':' + clientSecret)
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(clientID + ':' + clientSecret)
             },
             body: 'grant_type=client_credentials'
         });
 
-    var data = await result.json();
-    console.log(data)
-    accessToken = data.access_token;
-    // console.log(getGenres(accessToken))
-    // console.log(getPlaylistByGenre(token, genreId))
-    // var genre = data.categories
-    return accessToken;
-}
+        var data = await result.json();
+        console.log(data)
+        accessToken = data.access_token;
+        // console.log(getGenres(accessToken))
+        // console.log(getPlaylistByGenre(token, genreId))
+        // var genre = data.categories
+        return accessToken;
+    }
 
     // function takes token as par and returns genre categories
     var getGenres = async () => {
@@ -88,7 +93,7 @@ function spotifyAPI(token) {
         console.log("runningGetGenre")
         var result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + accessToken}
+            headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
         var data = await result.json();
@@ -100,7 +105,7 @@ function spotifyAPI(token) {
             var genreName = data.categories.items[i].name
 
             //compares dropdown selection with genre name to find the id
-            if ($('#dropdown1') == genreName){
+            if ($('#dropdown1') == genreName) {
                 genreId = data.categories.items[i].id
             };
         }
@@ -121,10 +126,10 @@ function spotifyAPI(token) {
         console.log("running getplaylistbygenre")
         console.log(genreId)
         var limit = 1;
-        
+
         var result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + accessToken}
+            headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
         var data = await result.json();
@@ -134,7 +139,7 @@ function spotifyAPI(token) {
         // Randomize and select one playlist?
         return data.playlists.items;
     }
-    
+
     //gets tracks from playlist ID and returns preview url
     //also returns song name
     var getTracks = async (tracksEndPoint) => {
@@ -143,7 +148,7 @@ function spotifyAPI(token) {
 
         var result = await fetch(`	https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=${limit}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + accessToken}
+            headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
         var data = await result.json();
@@ -169,7 +174,7 @@ function spotifyAPI(token) {
 
         var result = await fetch(`${trackEndPoint}`, {
             method: 'GET',
-            headers: { 'Authorization' : 'Bearer ' + accessToken}
+            headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
         var data = await result.json();
@@ -178,10 +183,10 @@ function spotifyAPI(token) {
 
 
     var runAll = async () => {
-    await getGenres(accessToken);
-    await getPlaylistByGenre(accessToken, genreId);
-    await getTracks(accessToken)
-    getLyrics();
+        await getGenres(accessToken);
+        await getPlaylistByGenre(accessToken, genreId);
+        await getTracks(accessToken)
+        getLyrics();
     }
 
     runAll();
