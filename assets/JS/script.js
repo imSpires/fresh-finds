@@ -18,12 +18,12 @@ var artist = "";
 var title = "";
 var genre = '';
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('select').formSelect();
-  });
+});
 
 //selects saves
-$('select').on('change', function(){
+$('select').on('change', function () {
     genre = this;
     console.log(genre);
 })
@@ -47,7 +47,6 @@ function getLyrics() {
         let lyricData = response.mus[0].text
         let lyrics = document.createTextNode(lyricData);
         let lyricsText = document.getElementById("lyricsText");
-
         lyricsText.appendChild(lyrics);
     })
 
@@ -209,6 +208,7 @@ function spotifyAPI(token) {
 };
 
 $('#songSubmit').click(function () {
+    lyricsText.innerHTML = "";
     console.log('click')
     genreId = $('.selected')[0].innerText
     console.log(genreId)
