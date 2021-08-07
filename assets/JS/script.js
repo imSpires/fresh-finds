@@ -17,42 +17,60 @@
 var artist = "";
 var title = "";
 var genre = '';
+var error = false;
 
+//drop down script
 $(document).ready(function () {
     $('select').formSelect();
 });
 
-//selects saves
-$('select').on('change', function () {
-    genre = this;
-    console.log(genre);
-})
-
-
-
-
-// Takes artist and song title to return lyrics for the song
-function getLyrics() {
-    fetch("https://api.vagalume.com.br/search.php"
-        + "?art=" + artist
-        + "&mus=" + title
-        + "&apikey={896e5346faeb02410b155bee7c8b998f}"
-    ).then(function (response) {
-        return response.json()
-    }
-    ).then(function (response) {
-        console.log(response)
-        console.log(response.mus[0].text)
-        //return response.mus[0].text
-        let lyricData = response.mus[0].text
-        let lyrics = document.createTextNode(lyricData);
-        let lyricsText = document.getElementById("lyricsText");
-        lyricsText.appendChild(lyrics);
-    })
-
+//utility randomizer
+function getRandom(length){
+    var randomNumber = Math.floor(Math.random() * length)
+    return randomNumber;
 }
-// Function is greyed out to avoid console.log clutter
-// getLyrics();
+
+//grabs lyrics and returns error if no lyrics found
+var getLyrics = async() =>{
+    //resets error to false
+    error = false
+    var result = await fetch("https://api.vagalume.com.br/search.php"
+    + "?art=" + artist
+    + "&mus=" + title
+    + "&apikey={896e5346faeb02410b155bee7c8b998f}");
+
+    var data = await result.json();
+
+    var songCheck = data.mus
+    console.log(songCheck)
+
+    if (songCheck) {
+        song = data.mus[0]
+        // console.log(song)
+        return song
+    } else {
+        error = true;
+        console.log("getLyrics error: " + error)
+        return error;
+    } 
+}
+
+//use to print lyrics to html
+function printLyrics(song){
+
+    // console.log(song);
+
+    //gets info for lyrics
+    let lyricData = song.text;
+    let lyrics = document.createTextNode(lyricData);
+    let lyricsText = document.getElementById("lyricsText");
+
+    //clears previous lyrics
+    lyricsText.innerHTML = "";
+
+    //prints new lyrics
+    lyricsText.appendChild(lyrics);
+}
 
 // Spotify code starts here --------------------
 // Variables
@@ -60,27 +78,23 @@ var clientID = '13e6f9bcfc184ddc8f5e03328ccbb045';
 var clientSecret = 'fa24c366468a420c8c795b9ec4a3ef23';
 
 //
-
-
-
-
-
-
-
-
-
 function spotifyAPI(token) {
-    console.log("Hello there")
+    console.log("runing spotifyAPI")
 
+    //variable for selected genre
     var genreId = $(".selected")[0].innerText
+
+    //token used for api requests
     var accessToken = ""
+
+    //playlist id for api
     var playlistId = ""
     var trackId = ""
     var preview_url = ""
 
     //gets spotify api token
     var getToken = async () => {
-        console.log("running getToken")
+        // console.log("running getToken")
         var result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
@@ -91,11 +105,7 @@ function spotifyAPI(token) {
         });
 
         var data = await result.json();
-        console.log(data)
         accessToken = data.access_token;
-        // console.log(getGenres(accessToken))
-        // console.log(getPlaylistByGenre(token, genreId))
-        // var genre = data.categories
         return accessToken;
     }
 
@@ -109,8 +119,8 @@ function spotifyAPI(token) {
         });
 
         var data = await result.json();
-        console.log(data)
-        console.log(data.categories.items)
+        // console.log(data)
+        // console.log(data.categories.items)
 
         //finds if genre matches one selected and saves id
         for (var i = 0; i < data.categories.items.length; i++) {
@@ -121,34 +131,34 @@ function spotifyAPI(token) {
                 genreId = data.categories.items[i].id
             };
         }
-
-
-        // console.log(genreName)
-
-
-        // genreId = data.categories.items[2].id
-        // console.log(genreId)
-        return;
+    return;
     }
-
 
     // function takes token and genreId as pars and returns a playlist
     var getPlaylistByGenre = async () => {
         await getToken();
         console.log("running getplaylistbygenre")
-        console.log(genreId)
-        var limit = 1;
+        // console.log(genreId)
+        var limit = 10;
 
         var result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
+        //list of playlists
         var data = await result.json();
-        console.log(data);
-        playlistId = data.playlists.items[0].id;
-        console.log(playlistId);
-        // Randomize and select one playlist?
+        // console.log(data);
+
+        //saves playlist length
+        //this prevents error if there are less playlists than Limit
+        var playlistLength = data.playlists.items.length;
+        // console.log(playlistLength);
+        
+        //selects playlist from list
+        playlistId = data.playlists.items[getRandom(playlistLength)].id;
+        // console.log(playlistId);
+
         return data.playlists.items;
     }
 
@@ -156,28 +166,33 @@ function spotifyAPI(token) {
     //also returns song name
     var getTracks = async (tracksEndPoint) => {
 
-        var limit = 1;
+        var limit = 15;
 
         var result = await fetch(`	https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=${limit}`, {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
+
         var data = await result.json();
 
-        console.log(data);
+        // console.log(data);
+
+        //saves track list length
+        //prevents error when track list is less than limit
+        var trackListLength = data.items.length;
+
+        var selectedTrack = data.items[getRandom(trackListLength)].track
 
         //saves song preview url to variable
-        preview_url = data.items[0].track.preview_url;
+        preview_url = selectedTrack.preview_url;
+        console.log(preview_url);
 
         //saves song to title variable
-        title = data.items[0].track.name;
-        console.log(title);
+        title = selectedTrack.name;
 
         //saves artist to artist variable
-        artist = data.items[0].track.artists[0].name;
-        console.log(artist);
-        console.log(preview_url);
+        artist = selectedTrack.artists[0].name;
         return preview_url;
     }
 
@@ -193,23 +208,56 @@ function spotifyAPI(token) {
         return data;
     }
 
+    //checks for errors
+    async function errorCheck(){
+        await getLyrics();
+        console.log("Lyrics error: " + error);
 
-    var runAll = async () => {
+        if(!preview_url){
+            console.log('no preview url available')
+            // error = true;
+        }
+
+        //runs spotifyAPI again if there was an error
+        //prints song if no error
+        if(error || !preview_url){
+            console.log('submit again')
+            spotifyAPI();
+        } else {
+            console.log("printing")
+            printSong();
+            printLyrics(song);
+        };
+    }
+
+    //takes song found by spotifyAPI and adds to html
+    function printSong(){
+        getLyrics();
+        $('#current-song-title').text(title);
+        $('#current-artist').text(artist);
+        $('#music-player-div').html('<iframe class="" id = "music-player" height = 80 width = 400 src = ' + preview_url + '></iframe>');
+    };
+
+    //runs functions to get title, artist, preview_url
+    var getSong = async () => {
         await getGenres(accessToken);
         await getPlaylistByGenre(accessToken, genreId);
         await getTracks(accessToken)
-        $('#current-song-title').text(title)
-        $('#current-artist').text(artist)
-        $('#music-player-div').html('<iframe class="" id = "music-player" height = 80 width = 400 src = ' + preview_url + '></iframe>')
-        getLyrics();
+        // $('#current-song-title').text(title)
+        // $('#current-artist').text(artist)
+        // $('#music-player-div').html('<iframe class="" id = "music-player" height = 80 width = 400 src = ' + preview_url + '></iframe>')
+        // getLyrics();
+        errorCheck();
     }
 
-    runAll();
+    getSong();
 };
 
 $('#songSubmit').click(function () {
-    lyricsText.innerHTML = "";
-    console.log('click')
+
+    // console.log('click')
+
+
     genreId = $('.selected')[0].innerText
     console.log(genreId)
     spotifyAPI();
