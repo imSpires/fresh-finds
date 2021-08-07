@@ -149,3 +149,31 @@ body {
   color: #000000 !important;
   text-align: center;
 }
+
+/* lyrics container */
+.lyrics-container{
+  overflow: scroll;
+  
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 0); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #423f3f; 
+}

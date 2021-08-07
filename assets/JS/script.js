@@ -39,10 +39,17 @@ function getLyrics() {
         return response.json()
     }
     ).then(function (response) {
-        let lyricData = response.mus[0].text
-        let lyrics = document.createTextNode(lyricData);
-        let lyricsText = document.getElementById("lyricsText");
-        lyricsText.appendChild(lyrics);
+
+        let song = response.mus
+        if (song) {
+            let lyricData = song[0].text
+            let lyrics = document.createTextNode(lyricData);
+            let lyricsText = document.getElementById("lyricsText");
+            lyricsText.appendChild(lyrics);
+        } else {
+            spotifyAPI();
+        } 
+
     })
 
 }
