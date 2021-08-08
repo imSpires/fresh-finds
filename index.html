@@ -34,32 +34,31 @@
 
             <!-- Song generator -->
             <div class="container main-container">
-                <!-- Dropdown Trigger -->
-                <!-- <a class='dropdown-trigger dropbtn btn' href='#' data-target='dropdown1'>Select</a> -->
-
-                <!-- Dropdown Structure -->
-                <!-- <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="#!">Rap</a></li>
-                    <li><a href="#!">Pop</a></li>
-                    <li><a href="#!">Rock</a></li>
-                </ul> -->
-                <div class="input-field col s12">
+                <!-- Dropdown --> 
+                <div class="drop-container col s12">
+                    <label>Select a Genre!</label>
+                    <div class="dropdown">
                     <select>
-                      <option value="" disabled selected>Choose a genre!</option>
+                      <option value="" disabled selected>Select...</option>
                       <option value="Rap">metal</option>
                       <option value="Rock">rock</option>
                       <option value="Pop">pop</option>
                     </select>
-                    <!-- <label>Choose a Genre!</label> -->
+                    </div>
                   </div>
+
+                  <!-- Music player created dynamically -->
                   <div id = "music-player-div">
                     <!-- <iframe class="" id = "music-player" height = 40 width = 100 src = ""></iframe> -->
                   </div>
+
+                  <!-- Song information -->
                 <div class="song-info">
                     <div class="song-title" id = "current-song-title">Song Title</div>
                     <div class="artist" id = "current-artist">Artist</div>
                 </div>
 
+                <!-- Submit button -->
                 <button class="submitbtn" id = "songSubmit">Submit</button>
             </div>
 
@@ -72,20 +71,19 @@
                     <div class="song-title" id= "previous-song-title">Song Title</div>
                     <div class="artist" id= "previous-artist">Artist</div>
                 </div>
-
-                <!--<button class="submitbtn">Share</button>-->
-
             </div>
         </div>
 
+        <!-- Right side of webpage containing lyrics -->
         <div class="right-container">
             <div class="lyrics-container container main-container">
                 <h2>Lyrics</h2>
                 <p id="lyricsText"></p>
             </div>
         </div>
-
     </div>
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./assets/JS/materialize.min.js"></script>
     <script type="text/javascript" src="./assets/JS/script.js"></script>
