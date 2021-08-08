@@ -28,7 +28,7 @@ var getLyrics = async() =>{
     var data = await result.json();
 
     var songCheck = data.mus
-    console.log(songCheck)
+    // console.log(songCheck)
 
     if (songCheck) {
         song = data.mus[0]
@@ -36,7 +36,7 @@ var getLyrics = async() =>{
         return song
     } else {
         error = true;
-        console.log("getLyrics error: " + error)
+        // console.log("getLyrics error: " + error)
         return error;
     } 
 }
@@ -98,7 +98,7 @@ function spotifyAPI(token) {
     // function takes token as par and returns genre categories
     var getGenres = async () => {
         await getToken();
-        console.log("runningGetGenre")
+        // console.log("runningGetGenre")
         var result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + accessToken }
@@ -123,7 +123,7 @@ function spotifyAPI(token) {
     // function takes token and genreId as pars and returns a playlist
     var getPlaylistByGenre = async () => {
         await getToken();
-        console.log("running getplaylistbygenre")
+        // console.log("running getplaylistbygenre")
         // console.log(genreId)
         var limit = 10;
 
@@ -172,7 +172,7 @@ function spotifyAPI(token) {
 
         //saves song preview url to variable
         preview_url = selectedTrack.preview_url;
-        console.log(preview_url);
+        // console.log(preview_url);
 
         //saves song to title variable
         title = selectedTrack.name;
@@ -197,10 +197,10 @@ function spotifyAPI(token) {
     //checks for errors
     async function errorCheck(){
         await getLyrics();
-        console.log("Lyrics error: " + error);
+        // console.log("Lyrics error: " + error);
 
         if(!preview_url){
-            console.log('no preview url available')
+            // console.log('no preview url available')
             // error = true;
         }
 
@@ -210,7 +210,7 @@ function spotifyAPI(token) {
             console.log('submit again')
             spotifyAPI();
         } else {
-            console.log("printing")
+            // console.log("printing")
             printSong();
             printLyrics(song);
         };
@@ -250,9 +250,121 @@ $('#songSubmit').click(function () {
     }
 
     genreId = $('.selected')[0].innerText
-    console.log(genreId)
+    // console.log(genreId)
     spotifyAPI();
 
 });
+
+//initiate favorites modal
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+
+var favoriteSongs = [];
+
+//loads previous favorites
+function loadPreviousFavorites(){
+        //gets favorites from local storage
+        var str = localStorage.getItem('favorites')
+        favoriteSongs = JSON.parse(str);
+        // console.log(favoriteSongs);
+
+        if (favoriteSongs){
+            printFavorites();
+        }
+}
+
+loadPreviousFavorites();
+// console.log(favoriteSongs);
+
+//saves to favorites
+function saveFavorite(songArtist, songTitle){
+
+    if(!favoriteSongs){
+        console.log("create empty array for favorites")
+        favoriteSongs = [];
+    }
+
+    console.log('saving!')
+
+    let songInfo = {};
+    let songId = favoriteSongs.length;
+    console.log(songId);
+    songInfo.songArtist = songArtist;
+    songInfo.songTitle = songTitle;
+    songInfo.songId = songId;
+    
+
+    favoriteSongs.push(songInfo);
+    console.log(favoriteSongs);
+
+    //saves favoriteSongs to localstorage
+    var jsonArray = JSON.stringify(favoriteSongs);
+    localStorage.setItem('favorites',jsonArray);
+
+    printFavorites();
+
+}
+
+//writes favorites to modal
+function printFavorites(){
+    console.log("printing favorites...");
+    let favoritesListEl = $(".favorites-list");
+    console.log($(".favorites-list"))
+    favoritesListEl[0].innerHTML = "";
+    
+    //loop to add each favorite to favorites list html
+    for (var i = 0; i < favoriteSongs.length; i++){
+
+        //variables to pass into HTML
+        songArtistEl = favoriteSongs[i].songArtist;
+        songTitleEl = favoriteSongs[i].songTitle;
+
+        //innerHTML to be added
+        let favoritesHTML =`<li class="favorites-item" id = "favorites-item${i}"><div class="container previous-song-container"><div class="previous-song-info"><div class="song-title" id= "previous-song-title">${songTitleEl}</div><div class="artist" id= "previous-artist">${songArtistEl}</div></div></li>;`
+
+        //adds each song to list
+        favoritesListEl.append(favoritesHTML);
+    }
+};
+//checks if song exists in favorites already
+//runs saveFavorite() if it does not exist in favorites
+function checkFavorite(){
+    var songTitle = $("#previous-song-title")[0].innerText;
+    var songArtist = $("#previous-artist")[0].innerText
+    console.log(songTitle);
+    console.log(songArtist);
+
+    //checks that songtitle and artist exist
+    if(songArtist && songTitle){
+        if (!favoriteSongs){
+            // console.log("adding first song")
+            saveFavorite(songArtist, songTitle);
+        } else {
+            // console.log("checking if song exists in favorites already")
+
+            var songInArray = false;
+
+            //changes song in array to true 
+            //if song is already in the favorites list
+            for (var i = 0; i < favoriteSongs.length; i++){
+                if (favoriteSongs[i].songArtist === songArtist && favoriteSongs[i].songTitle === songTitle){
+                    songInArray = true;
+                    // console.log("song already exists!")
+                }
+            }
+
+            //will run saveFavorite if songInArray is false
+            if (!songInArray){
+                saveFavorite(songArtist, songTitle);
+            }
+        };
+    };
+}
+
+//starts saving progress when save button is clicked
+$("#save-song-btn").click(function(){
+    checkFavorite();
+})
 
 //spotifyAPI();
