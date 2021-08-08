@@ -285,23 +285,19 @@ function saveFavorite(songArtist, songTitle){
         favoriteSongs = [];
     }
 
-    console.log('saving!')
-
+    //song info object
     let songInfo = {};
-    let songId = favoriteSongs.length;
-    console.log(songId);
     songInfo.songArtist = songArtist;
     songInfo.songTitle = songTitle;
-    songInfo.songId = songId;
-    
 
+    //pushes song object to favorites array
     favoriteSongs.push(songInfo);
-    console.log(favoriteSongs);
 
     //saves favoriteSongs to localstorage
     var jsonArray = JSON.stringify(favoriteSongs);
     localStorage.setItem('favorites',jsonArray);
 
+    //prints to html once saved
     printFavorites();
 
 }
@@ -332,17 +328,12 @@ function printFavorites(){
 function checkFavorite(){
     var songTitle = $("#previous-song-title")[0].innerText;
     var songArtist = $("#previous-artist")[0].innerText
-    console.log(songTitle);
-    console.log(songArtist);
 
     //checks that songtitle and artist exist
     if(songArtist && songTitle){
         if (!favoriteSongs){
-            // console.log("adding first song")
             saveFavorite(songArtist, songTitle);
         } else {
-            // console.log("checking if song exists in favorites already")
-
             var songInArray = false;
 
             //changes song in array to true 
@@ -350,9 +341,8 @@ function checkFavorite(){
             for (var i = 0; i < favoriteSongs.length; i++){
                 if (favoriteSongs[i].songArtist === songArtist && favoriteSongs[i].songTitle === songTitle){
                     songInArray = true;
-                    // console.log("song already exists!")
-                }
-            }
+                };
+            };
 
             //will run saveFavorite if songInArray is false
             if (!songInArray){
@@ -366,5 +356,3 @@ function checkFavorite(){
 $("#save-song-btn").click(function(){
     checkFavorite();
 })
-
-//spotifyAPI();
