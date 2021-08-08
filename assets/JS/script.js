@@ -68,7 +68,7 @@ function spotifyAPI(token) {
     console.log("runing spotifyAPI")
 
     //variable for selected genre
-    var genreId = $(".selected")[0].innerText
+    var genreId = $(".selected")[0].innerText.toLowerCase();
 
     //token used for api requests
     var accessToken = ""
@@ -241,8 +241,13 @@ function spotifyAPI(token) {
 
 $('#songSubmit').click(function () {
 
-    // console.log('click')
-
+    // Add current song / artist to previous section
+    if (artist) {
+        $('#previous-song-title').text(title);
+        $('#previous-artist').text(artist);
+    } else {
+        console.log('No artist');
+    }
 
     genreId = $('.selected')[0].innerText
     console.log(genreId)
