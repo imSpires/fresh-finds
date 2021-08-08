@@ -19,6 +19,8 @@
 </head>
 
 <body>
+    <div id="cover-spin"></div>
+
     <header class="container header">
         <div class="jumbotron">
             <h1 class="freshFinds">
@@ -26,6 +28,7 @@
             </h1>
         </div>
     </header>
+
     <div class="body-container">
         <div class="left-container">
             <div class="intro">
@@ -54,12 +57,20 @@
 
                   <!-- Song information -->
                 <div class="song-info">
-                    <div class="song-title" id = "current-song-title">Song Title</div>
-                    <div class="artist" id = "current-artist">Artist</div>
+                    <div class="song-title" id = "current-song-title">Hit the submit button to find new music!</div>
+                    <div class="artist" id = "current-artist"></div>
                 </div>
 
                 <!-- Submit button -->
-                <button class="submitbtn" id = "songSubmit">Submit</button>
+                <button data-modal-target="#modal" class="submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
+                <!-- <div class="modal active" id="modal">
+                    <div class="modal-header">
+                    <div></div>
+                    <button data-close-button class="close-button">&times;</button>
+                    </div>
+                    <p>Text</p>
+                </div>
+                <div class="active" id="modal-overlay"></div> -->
             </div>
 
             <!-- Previous song -->
@@ -68,8 +79,8 @@
             </div>
             <div class="container previous-song-container">
                 <div class="previous-song-info">
-                    <div class="song-title" id= "previous-song-title">Song Title</div>
-                    <div class="artist" id= "previous-artist">Artist</div>
+                    <div class="song-title" id= "previous-song-title"></div>
+                    <div class="artist" id= "previous-artist"></div>
                 </div>
             </div>
         </div>

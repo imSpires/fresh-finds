@@ -218,10 +218,11 @@ function spotifyAPI(token) {
 
     //takes song found by spotifyAPI and adds to html
     function printSong(){
+        $('#cover-spin').hide(0);
         getLyrics();
         $('#current-song-title').text(title);
         $('#current-artist').text(artist);
-        $('#music-player-div').html('<iframe class="" id = "music-player" frameborder="0" allowtransparency="true" allow="encrypted-media" src = ' + preview_url + '></iframe>');
+        $('#music-player-div').html('<iframe class="" id = "music-player" frameborder="0" allowtransparency="true" autoplay allow="encrypted-media" src = ' + preview_url + '></iframe>');
     };
 
     //runs functions to get title, artist, preview_url
@@ -240,7 +241,6 @@ function spotifyAPI(token) {
 };
 
 $('#songSubmit').click(function () {
-
     // Add current song / artist to previous section
     if (artist) {
         $('#previous-song-title').text(title);
@@ -249,10 +249,31 @@ $('#songSubmit').click(function () {
         console.log('No artist');
     }
 
-    genreId = $('.selected')[0].innerText
-    console.log(genreId)
+    genreId = $('.selected')[0].innerText;
+    if (genreId !== 'Select...') {
+        $('#cover-spin').show(0);
+    } else {
+        window.alert('Try again')
+        // var modal = document.querySelector(button.dataset.modalTarget);
+        // openModal(modal);
+    }
     spotifyAPI();
 
 });
+// var overlay = document.querySelector('.modal-overlay');
 
-//spotifyAPI();
+// $('.close-button').click(function () {
+//     var modal = button.closest('.modal');
+//     closeModal();
+// })
+
+// function openModal(modal) {
+//     modal.classList.add('active');
+//     overlay.classList.add('active');
+// }
+
+// function closeModal(modal) {
+//     if (modal === null) return;
+//         modal.classList.remove('active');
+//         overlay.classList.remove('active');
+// }
