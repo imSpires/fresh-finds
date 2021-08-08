@@ -1,17 +1,3 @@
-
-// // function to utilize dropdown menu 
-// // (reference from materialize)
-// function dropDown() {
-//     var dropDownEl = document.querySelectorAll('.dropdown-trigger');
-//     var dropDownOptions = M.Dropdown.init(dropDownEl, {
-//         hover: false, // Activate on hover
-//         gutter: 0, // Spacing from edge
-//         stopPropagation: false // Stops event propagation
-//     });
-// };
-
-// document.addEventListener('DOMContentLoaded', dropDown);
-
 //testing variable
 //replace with song title/artist pulled from song in spotify
 var artist = "";
@@ -235,7 +221,7 @@ function spotifyAPI(token) {
         getLyrics();
         $('#current-song-title').text(title);
         $('#current-artist').text(artist);
-        $('#music-player-div').html('<iframe class="" id = "music-player" height = 80 width = 400 src = ' + preview_url + '></iframe>');
+        $('#music-player-div').html('<iframe class="" id = "music-player" frameborder="0" allowtransparency="true" allow="encrypted-media" src = ' + preview_url + '></iframe>');
     };
 
     //runs functions to get title, artist, preview_url
