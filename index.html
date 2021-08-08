@@ -82,6 +82,8 @@
                     <div class="song-title" id= "previous-song-title"></div>
                     <div class="artist" id= "previous-artist"></div>
                 </div>
+                <!-- Save to Favorites Button -->
+                <button class="submitbtn" id = "save-song-btn">Save</button>
             </div>
         </div>
 
@@ -94,6 +96,29 @@
         </div>
     </div>
 
+
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Favorites</a>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+        <h4>Favorites</h4>
+        <ul class = "favorites-list">
+            <!-- <li class="favorites-item" id = "favorites-item1">
+                <div class="container previous-song-container">
+                    <div class="previous-song-info">
+                        <div class="song-title" id= "previous-song-title">Song Title</div>
+                        <div class="artist" id= "previous-artist">Artist</div>
+                    </div>
+            </li> -->
+        </ul>
+        </div>
+        <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+              
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./assets/JS/materialize.min.js"></script>
