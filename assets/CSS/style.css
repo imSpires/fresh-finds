@@ -100,6 +100,16 @@ body {
   border-radius: 20px;
 }
 
+.drop-container label {
+  font-size: 20px;
+  color: rgb(238, 238, 238);
+}
+
+.dropdown {
+  background-color: white;
+  margin-top: 10px;
+}
+
 .main-container .dropbtn {
   margin-bottom: 40px;
 }
@@ -176,4 +186,47 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #423f3f; 
+}
+
+/* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
+@media screen and (max-width: 980px) {
+  .body-container {
+    flex-direction: column;
+  }
+
+  .left-container, .right-container {
+    width: 100%;
+  }
+
+  .right-container {
+    margin-bottom: 20px;
+  }
+
+
+}
+
+/* MEDIA QUERY FOR MOBILE PHONES AND SMALLER */
+@media screen and (max-width: 575px) {
+
+  .main-container {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  .dropdown {
+    margin: 0;
+  }
+
+  .submitbtn {
+    width: 80%;
+  }
+
+  .previous-song-container {
+    margin-bottom: 20px;
+  }
+
+  .right-container {
+    display: none;
+  }
+
 }
