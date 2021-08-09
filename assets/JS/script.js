@@ -277,3 +277,112 @@ $('#songSubmit').click(function () {
 //         modal.classList.remove('active');
 //         overlay.classList.remove('active');
 // }
+
+
+//initiate favorites modal
+$(document).ready(function(){
+    $('.modal').modal();
+  });
+
+var favoriteSongs = [];
+
+//loads previous favorites
+function loadPreviousFavorites(){
+        //gets favorites from local storage
+        var str = localStorage.getItem('favorites')
+        favoriteSongs = JSON.parse(str);
+        // console.log(favoriteSongs);
+
+        if (favoriteSongs){
+            printFavorites();
+        }
+}
+
+loadPreviousFavorites();
+// console.log(favoriteSongs);
+
+//saves to favorites
+function saveFavorite(songArtist, songTitle){
+
+    if(!favoriteSongs){
+        console.log("create empty array for favorites")
+        favoriteSongs = [];
+    }
+
+    //song info object
+    let songInfo = {};
+    songInfo.songArtist = songArtist;
+    songInfo.songTitle = songTitle;
+
+    //pushes song object to favorites array
+    favoriteSongs.push(songInfo);
+
+    //saves favoriteSongs to localstorage
+    var jsonArray = JSON.stringify(favoriteSongs);
+    localStorage.setItem('favorites',jsonArray);
+
+    //prints to html once saved
+    printFavorites();
+
+}
+
+//writes favorites to modal
+function printFavorites(){
+    let favoritesListEl = $(".favorites-list");
+    favoritesListEl[0].innerHTML = "";
+    
+    //loop to add each favorite to favorites list html
+    for (var i = 0; i < favoriteSongs.length; i++){
+
+        //variables to pass into HTML
+        songArtistEl = favoriteSongs[i].songArtist;
+        songTitleEl = favoriteSongs[i].songTitle;
+
+        //innerHTML to be added
+        let favoritesHTML =`<li class="favorites-item" id = "favorites-item${i}"><div class="container previous-song-container"><div class="previous-song-info"><div class="song-title" id= "previous-song-title">${songTitleEl}</div><div class="artist" id= "previous-artist">${songArtistEl}</div></div></li>`
+
+        //adds each song to list
+        favoritesListEl.append(favoritesHTML);
+    }
+};
+//checks if song exists in favorites already
+//runs saveFavorite() if it does not exist in favorites
+function checkFavorite(songTitle, songArtist){
+
+    //checks that songtitle and artist exist
+    if(songArtist && songTitle){
+        if (!favoriteSongs){
+            saveFavorite(songArtist, songTitle);
+        } else {
+            var songInArray = false;
+
+            //changes song in array to true 
+            //if song is already in the favorites list
+            for (var i = 0; i < favoriteSongs.length; i++){
+                if (favoriteSongs[i].songArtist === songArtist && favoriteSongs[i].songTitle === songTitle){
+                    songInArray = true;
+                };
+            };
+
+            //will run saveFavorite if songInArray is false
+            if (!songInArray){
+                saveFavorite(songArtist, songTitle);
+            }
+        };
+    };
+}
+
+//starts saving progress when save button is clicked
+$("#save-prev-song-btn").click(function(){
+    var songTitle = $("#previous-song-title")[0].innerText;
+    var songArtist = $("#previous-artist")[0].innerText
+    checkFavorite(songTitle, songArtist);
+})
+
+//starts saving progress when save button is clicked
+$("#save-current-song-btn").click(function(){
+    console.log("click")
+    var songTitle = $("#current-song-title")[0].innerText;
+    var songArtist = $("#current-artist")[0].innerText
+    checkFavorite(songTitle, songArtist);
+})
