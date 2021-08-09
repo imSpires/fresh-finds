@@ -71,7 +71,7 @@
                     <button data-modal-target="#modal" class=" submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
             
                     <!-- Save to Favorites Button -->
-                    <button class="submitbtn savebtn" id = "save-current-song-btn">Save</button>
+                    <button data-target="modal2" class="submitbtn modal-trigger" id = "save-current-song-btn">Save</button>
                 </div>
             </div>
 
@@ -85,7 +85,16 @@
                     <div class="artist" id= "previous-artist"></div>
                 </div>
                 <!-- Save to Favorites Button -->
-                <button class="prevbtn" id = "save-prev-song-btn">Save</button>
+                <button data-target="modal2" class="submitbtn modal-trigger" id = "save-prev-song-btn">Save</button>
+    <!-- Modal Structure -->
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+            <h4>Saved to your favorites!</h4>
+            </div>
+            <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
             </div>
         </div>
 
