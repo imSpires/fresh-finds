@@ -28,23 +28,18 @@ var getLyrics = async() =>{
     var data = await result.json();
 
     var songCheck = data.mus
-    console.log(songCheck)
 
     if (songCheck) {
         song = data.mus[0]
-        // console.log(song)
         return song
     } else {
         error = true;
-        console.log("getLyrics error: " + error)
         return error;
     } 
 }
 
 //use to print lyrics to html
 function printLyrics(song){
-
-    // console.log(song);
 
     //gets info for lyrics
     let lyricData = song.text;
@@ -65,7 +60,6 @@ var clientSecret = 'fa24c366468a420c8c795b9ec4a3ef23';
 
 //
 function spotifyAPI(token) {
-    console.log("runing spotifyAPI")
 
     //variable for selected genre
     var genreId = $(".selected")[0].innerText.toLowerCase();
@@ -80,7 +74,6 @@ function spotifyAPI(token) {
 
     //gets spotify api token
     var getToken = async () => {
-        // console.log("running getToken")
         var result = await fetch('https://accounts.spotify.com/api/token', {
             method: 'POST',
             headers: {
@@ -98,15 +91,12 @@ function spotifyAPI(token) {
     // function takes token as par and returns genre categories
     var getGenres = async () => {
         await getToken();
-        console.log("runningGetGenre")
         var result = await fetch(`https://api.spotify.com/v1/browse/categories?locale=sv_US`, {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + accessToken }
         });
 
         var data = await result.json();
-        // console.log(data)
-        // console.log(data.categories.items)
 
         //finds if genre matches one selected and saves id
         for (var i = 0; i < data.categories.items.length; i++) {
@@ -123,8 +113,6 @@ function spotifyAPI(token) {
     // function takes token and genreId as pars and returns a playlist
     var getPlaylistByGenre = async () => {
         await getToken();
-        console.log("running getplaylistbygenre")
-        // console.log(genreId)
         var limit = 10;
 
         var result = await fetch(`https://api.spotify.com/v1/browse/categories/${genreId}/playlists?limit=${limit}`, {
@@ -134,16 +122,13 @@ function spotifyAPI(token) {
 
         //list of playlists
         var data = await result.json();
-        // console.log(data);
 
         //saves playlist length
         //this prevents error if there are less playlists than Limit
         var playlistLength = data.playlists.items.length;
-        // console.log(playlistLength);
         
         //selects playlist from list
         playlistId = data.playlists.items[getRandom(playlistLength)].id;
-        // console.log(playlistId);
 
         return data.playlists.items;
     }
@@ -162,8 +147,6 @@ function spotifyAPI(token) {
 
         var data = await result.json();
 
-        // console.log(data);
-
         //saves track list length
         //prevents error when track list is less than limit
         var trackListLength = data.items.length;
@@ -172,7 +155,6 @@ function spotifyAPI(token) {
 
         //saves song preview url to variable
         preview_url = selectedTrack.preview_url;
-        console.log(preview_url);
 
         //saves song to title variable
         title = selectedTrack.name;
@@ -197,20 +179,16 @@ function spotifyAPI(token) {
     //checks for errors
     async function errorCheck(){
         await getLyrics();
-        console.log("Lyrics error: " + error);
 
         if(!preview_url){
-            console.log('no preview url available')
             // error = true;
         }
 
         //runs spotifyAPI again if there was an error
         //prints song if no error
         if(error || !preview_url){
-            console.log('submit again')
             spotifyAPI();
         } else {
-            console.log("printing")
             printSong();
             printLyrics(song);
         };
@@ -246,7 +224,6 @@ $('#songSubmit').click(function () {
         $('#previous-song-title').text(title);
         $('#previous-artist').text(artist);
     } else {
-        console.log('No artist');
     }
 
     genreId = $('.selected')[0].innerText;
@@ -260,23 +237,6 @@ $('#songSubmit').click(function () {
     spotifyAPI();
 
 });
-// var overlay = document.querySelector('.modal-overlay');
-
-// $('.close-button').click(function () {
-//     var modal = button.closest('.modal');
-//     closeModal();
-// })
-
-// function openModal(modal) {
-//     modal.classList.add('active');
-//     overlay.classList.add('active');
-// }
-
-// function closeModal(modal) {
-//     if (modal === null) return;
-//         modal.classList.remove('active');
-//         overlay.classList.remove('active');
-// }
 
 
 //initiate favorites modal
@@ -291,7 +251,6 @@ function loadPreviousFavorites(){
         //gets favorites from local storage
         var str = localStorage.getItem('favorites')
         favoriteSongs = JSON.parse(str);
-        // console.log(favoriteSongs);
 
         if (favoriteSongs){
             printFavorites();
@@ -299,13 +258,11 @@ function loadPreviousFavorites(){
 }
 
 loadPreviousFavorites();
-// console.log(favoriteSongs);
 
 //saves to favorites
 function saveFavorite(songArtist, songTitle){
 
     if(!favoriteSongs){
-        console.log("create empty array for favorites")
         favoriteSongs = [];
     }
 
@@ -381,7 +338,6 @@ $("#save-prev-song-btn").click(function(){
 
 //starts saving progress when save button is clicked
 $("#save-current-song-btn").click(function(){
-    console.log("click")
     var songTitle = $("#current-song-title")[0].innerText;
     var songArtist = $("#current-artist")[0].innerText
     checkFavorite(songTitle, songArtist);

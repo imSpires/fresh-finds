@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <!--Import materialize.css-->
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/CSS/materialize.min.css">
     <!-- Import style.css -->
     <link rel="stylesheet" href="./assets/CSS/style.css">
 </head>
@@ -65,20 +65,14 @@
                     <div class="artist" id = "current-artist"></div>
                 </div>
 
+                <!-- Buttons -->
+                <div class="buttons-container">
                 <!-- Submit button -->
-                <button data-modal-target="#modal" class=" submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
-           
-                <!-- Save to Favorites Button -->
-                <button class="submitbtn" id = "save-current-song-btn">Save</button>
-
-                <!-- <div class="modal active" id="modal">
-                    <div class="modal-header">
-                    <div></div>
-                    <button data-close-button class="close-button">&times;</button>
-                    </div>
-                    <p>Text</p>
+                    <button data-modal-target="#modal" class=" submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
+            
+                    <!-- Save to Favorites Button -->
+                    <button class="submitbtn savebtn" id = "save-current-song-btn">Save</button>
                 </div>
-                <div class="active" id="modal-overlay"></div> -->
             </div>
 
             <!-- Previous song -->
@@ -87,11 +81,11 @@
             </div>
             <div class="container previous-song-container">
                 <div class="previous-song-info">
-                    <div class="song-title" id= "previous-song-title"></div>
+                    <div class="song-title" id= "previous-song-title">Save your song history!</div>
                     <div class="artist" id= "previous-artist"></div>
                 </div>
                 <!-- Save to Favorites Button -->
-                <button class="submitbtn" id = "save-prev-song-btn">Save</button>
+                <button class="prevbtn" id = "save-prev-song-btn">Save</button>
             </div>
         </div>
 
@@ -101,25 +95,21 @@
                 <h2>Lyrics</h2>
                 <p id="lyricsText"></p>
             </div>
+
+            <div class="modal-container">
+                <!-- Modal Trigger -->
+                <a class="waves-effect waves-light favbtn modal-trigger" href="#modal1">Favorites</a>
+            </div>
+
         </div>
+
     </div>
 
-    <div>
-        <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Favorites</a>
-    </div>
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
         <h4>Favorites</h4>
         <ul class = "favorites-list">
-            <!-- <li class="favorites-item" id = "favorites-item1">
-                <div class="container previous-song-container">
-                    <div class="previous-song-info">
-                        <div class="song-title" id= "previous-song-title">Song Title</div>
-                        <div class="artist" id= "previous-artist">Artist</div>
-                    </div>
-            </li> -->
         </ul>
         </div>
         <div class="modal-footer">

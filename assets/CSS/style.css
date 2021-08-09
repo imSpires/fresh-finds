@@ -19,12 +19,12 @@ body {
 }
 
 .header h1 {
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 750;
 }
 
 .header span {
-  color:rgba(161, 161, 161, 0.863)
+  color:rgba(161, 161, 161, 0.863);
 }
 
 .body-container {
@@ -44,7 +44,7 @@ body {
 }
 
 .right-container .main-container {
-  height: 600px;
+  height: 530px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -56,7 +56,7 @@ body {
 
 .intro h2 {
   padding-bottom: 5px;
-  font-size: 28px;
+  font-size: 24px;
   text-align: center;
 }
 
@@ -84,22 +84,39 @@ body {
   background-color: rgba(255, 255, 255, 0.308);
 }
 
-.submitbtn {
+.submitbtn, .prevbtn {
   padding: 10px;
   text-decoration: none;
   border: none;
   cursor: pointer;
   color: white;
   font-size: 18px;
-  flex: 1;
   font-family: 'Audiowide', cursive;
   background: transparent;
   justify-content: center;
   align-items: center;
-  width: 30%;
   height: 50px;
   background-color: rgba(0, 0, 0, 0.548);
   border-radius: 20px;
+  margin: 0 50px;
+}
+
+.submitbtn {
+  flex: 2;
+}
+
+.prevbtn {
+  flex: 1;
+}
+
+.savebtn {
+  flex: 1;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .drop-container label {
@@ -130,7 +147,7 @@ body {
   font-size: 22px;
 }
 
-.submitbtn:hover {
+.submitbtn:hover, .prevbtn:hover{
   background-color: rgba(255, 255, 255, 0.521);
   color: black;
   transition: .5s;
@@ -164,6 +181,50 @@ body {
   overflow: scroll;
 }
 
+/* Fav modal */
+.modal .modal-content {
+  background-color:rgba(161, 161, 161, 0.863);
+}
+
+.modal .modal-footer {
+  background-color:rgba(161, 161, 161, 0.863);
+}
+
+.btn, .btn-large, .btn-small {
+  background-color: rgba(0, 0, 0, 0.548);
+  background: transparent
+}
+
+.modal-container {
+  display: flex; 
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  
+}
+
+.modal-container a {
+  font-size: 35px;
+}
+
+.modal-container .favbtn {
+  padding: 10px 25px;
+  color: white;
+  cursor: pointer;
+  font-family: 'Audiowide', cursive;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.171);
+  border-radius: 20px;
+
+}
+
+.favbtn:hover {
+  background-color: rgba(255, 255, 255, 0.521);
+  color: black;
+  transition: .5s;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;
@@ -191,6 +252,7 @@ body {
   height: 60px;
 }
 
+/* Loading animation */
 #cover-spin {
   position:fixed;
   width:100%;
@@ -224,59 +286,6 @@ to {transform:rotate(360deg);}
   -webkit-animation: spin .8s linear infinite;
   animation: spin .8s linear infinite;
 }
-
-/* .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border: 1px solid black;
-  border-radius: 5px;
-  z-index: 9999;
-  background-color: white;
-  width: 500px;
-  max-width: 80%;
-  transition: 200ms ease-in-out;
-}
-
-.modal.active {
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.modal-header {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-header .close-button {
-  cursor: pointer;
-  background: none;
-  outline: none;
-  border: none;
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.modal p {
-  padding: 10px 15px;
-}
-
-#modal-overlay {
-  position: fixed;
-  width: 100%;
-  transition: 200ms ease-in-out;
-  left:0;right:0;top:0;bottom:0;
-  background-color: rgba(255,255,255,0.7);
-  opacity: 0;
-  pointer-events: none;
-}
-
-#modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-} */
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
 @media screen and (max-width: 980px) {
@@ -326,17 +335,4 @@ to {transform:rotate(360deg);}
     width: 225px;
   }
 
-}
-
-.modal .modal-content {
-  background-color:rgba(161, 161, 161, 0.863)
-}
-
-.modal .modal-footer {
-  background-color:rgba(161, 161, 161, 0.863)
-}
-
-.btn, .btn-large, .btn-small {
-  background-color: rgba(0, 0, 0, 0.548);
-  background: transparent
 }
