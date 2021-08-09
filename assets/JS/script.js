@@ -328,9 +328,7 @@ function saveFavorite(songArtist, songTitle){
 
 //writes favorites to modal
 function printFavorites(){
-    console.log("printing favorites...");
     let favoritesListEl = $(".favorites-list");
-    console.log($(".favorites-list"))
     favoritesListEl[0].innerHTML = "";
     
     //loop to add each favorite to favorites list html
@@ -341,7 +339,7 @@ function printFavorites(){
         songTitleEl = favoriteSongs[i].songTitle;
 
         //innerHTML to be added
-        let favoritesHTML =`<li class="favorites-item" id = "favorites-item${i}"><div class="container previous-song-container"><div class="previous-song-info"><div class="song-title" id= "previous-song-title">${songTitleEl}</div><div class="artist" id= "previous-artist">${songArtistEl}</div></div></li>;`
+        let favoritesHTML =`<li class="favorites-item" id = "favorites-item${i}"><div class="container previous-song-container"><div class="previous-song-info"><div class="song-title" id= "previous-song-title">${songTitleEl}</div><div class="artist" id= "previous-artist">${songArtistEl}</div></div></li>`
 
         //adds each song to list
         favoritesListEl.append(favoritesHTML);
@@ -349,9 +347,7 @@ function printFavorites(){
 };
 //checks if song exists in favorites already
 //runs saveFavorite() if it does not exist in favorites
-function checkFavorite(){
-    var songTitle = $("#previous-song-title")[0].innerText;
-    var songArtist = $("#previous-artist")[0].innerText
+function checkFavorite(songTitle, songArtist){
 
     //checks that songtitle and artist exist
     if(songArtist && songTitle){
@@ -377,6 +373,16 @@ function checkFavorite(){
 }
 
 //starts saving progress when save button is clicked
-$("#save-song-btn").click(function(){
-    checkFavorite();
+$("#save-prev-song-btn").click(function(){
+    var songTitle = $("#previous-song-title")[0].innerText;
+    var songArtist = $("#previous-artist")[0].innerText
+    checkFavorite(songTitle, songArtist);
+})
+
+//starts saving progress when save button is clicked
+$("#save-current-song-btn").click(function(){
+    console.log("click")
+    var songTitle = $("#current-song-title")[0].innerText;
+    var songArtist = $("#current-artist")[0].innerText
+    checkFavorite(songTitle, songArtist);
 })

@@ -46,6 +46,10 @@
                       <option value="Rap">Metal</option>
                       <option value="Rock">Rock</option>
                       <option value="Pop">Pop</option>
+                      <option value="blues">Blues</option>
+                      <option value="hiphop">Hiphop</option>
+                      <option value="Country">Country</option>
+                      <option value="latin">Latin</option>
                     </select>
                     </div>
                   </div>
@@ -62,7 +66,11 @@
                 </div>
 
                 <!-- Submit button -->
-                <button data-modal-target="#modal" class="submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
+                <button data-modal-target="#modal" class=" submitbtn waves-effect waves-light" id = "songSubmit">Submit</button>
+           
+                <!-- Save to Favorites Button -->
+                <button class="submitbtn" id = "save-current-song-btn">Save</button>
+
                 <!-- <div class="modal active" id="modal">
                     <div class="modal-header">
                     <div></div>
@@ -83,7 +91,7 @@
                     <div class="artist" id= "previous-artist"></div>
                 </div>
                 <!-- Save to Favorites Button -->
-                <button class="submitbtn" id = "save-song-btn">Save</button>
+                <button class="submitbtn" id = "save-prev-song-btn">Save</button>
             </div>
         </div>
 
@@ -96,10 +104,10 @@
         </div>
     </div>
 
-
-    <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Favorites</a>
-
+    <div>
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Favorites</a>
+    </div>
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
@@ -115,7 +123,7 @@
         </ul>
         </div>
         <div class="modal-footer">
-        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
               
